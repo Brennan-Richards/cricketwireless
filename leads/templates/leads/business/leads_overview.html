@@ -1,0 +1,69 @@
+{% extends 'cricketwireless/base.html' %}
+
+
+{% block content_header %}
+    {% include 'cricketwireless/page-title-header.html' with page="Leads"%}
+{% endblock content_header %}
+
+
+{% block content %}
+
+<!-- Datatables stuff -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+
+<table class="table table-bordered table-striped" style="margin:auto; font-size: 0.9rem;" id="leads-list">
+    <thead class="table-header">
+      <tr>
+        <td>NAME</td>
+        <td>DATE CREATED</td>
+        <td>STATUS</td>
+        <td>PHONE #</td>
+        <td>EMAIL</td>
+        <td>DETAILS</td>
+         <!-- Actions: update lead info (form, url, view, template), view all details (view, url, template), ... -->
+      </tr>
+    </thead>
+    <tbody>
+    {% for l in leads_list %}
+        <tr>
+          <td>
+            {{ l }}
+
+          </td>
+          <td data-sort='{{ l.date_created|date:"c" }}'>{{ l.date_created }}</td>
+          <td><p>"{{ l.current_status }}"</p></td>
+          <td>
+            {% if l.phone_number is not None %}
+              <a href="tel:{{ l.phone_number }}" class="client-link">{{ l.phone_number }}</a>
+            {% else %}
+              <p> - </p>
+            {% endif %}
+          </td>
+          <td>
+            {% if l.email_address is not None %}
+              <a href="mailto:{{ l.email_address }}" class="client-link">{{ l.email_address }}</a>
+            {% else %}
+              <p> - </p>
+            {% endif %}
+          </td>
+          <td>
+            <a href="{% url 'lead_details' l.id %}" class="btn btn-sm btn-light btn-outline-dark"> Details</a>
+          </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <script type="text/javascript">
+
+    $(document).ready( function () {
+      $('#leads-list').DataTable({
+        "order": [[ 1, "desc" ]]
+      });
+    } );
+  
+  </script>
+
+{% endblock content %}

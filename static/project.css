@@ -1,0 +1,244 @@
+
+body {
+    padding: 0;
+}
+
+/* Authentication */
+
+#login-block {
+    background-color: #eee;
+    padding: 20px;
+
+}
+
+/* #login-block > a {
+
+} */
+
+/* #google-provider-icon {
+    height: 100%;
+    border-right: 1px solid gray;
+} */
+/* 
+.socialaccount_providers {
+ list-style-type: none;
+}
+
+.socialaccount_providers > li {
+    border: 1px solid gray;
+
+} */
+
+/* #google-oauth-button > img {
+ border-right: 1px solid gray;
+ height: 100%;
+} */
+
+
+/* Home page */
+
+#home-header {
+    width: 100%;
+    padding: 30px;
+    background-color:#4CBB17;
+    height: 400px;
+}
+
+#header-family-image {
+    height: 350px;
+    float: left;
+}
+
+#header-text {
+    position: relative;
+    top: 18px;
+    left: 40px;
+}
+
+#header-text > h1 {
+    font-size: 3.5rem;
+}
+#header-text > h3 {
+    font-size: 2.5rem;
+}
+
+@media screen and (max-width: 800px) {
+    #header-text{
+      position: absolute;
+      z-index: 2;
+      text-align:center;
+      text-shadow: 0px 0px 10px rgb(75, 75, 75);
+    }
+    #header-text > h1, #header-text > h3{
+        color: white;
+        font-size: 2.5rem;
+    }
+}
+
+#home-page-second-row > P {
+    color: gray;
+}
+
+/* Navbar */
+
+ul#navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /* overflow: hidden; */
+    background-image: linear-gradient(to right, rgb(168, 224, 99), rgb(86, 171, 47));
+    position: relative; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    z-index: 2;
+}
+  
+ul#navbar > li {
+    float: left;
+}
+  
+ul#navbar > li a {
+    display: block;
+    /* color: white; */
+    text-align: center;
+    padding: 14px 16px;
+    height: 100%;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+a.nav-link {
+    color:white;
+}
+
+a.nav-link:hover {
+    color:white;
+}
+
+li > div.dropdown > a.dropbtn{
+    color:white;
+}
+
+li > div.dropdown > a.dropbtn:hover {
+    color:white;
+}
+
+/* Change the link color to #111 (black) on hover */
+ul#navbar > li:hover {
+    background-color: #111;
+}
+
+#logo-image {
+    float:left;
+    width: 150px;
+    padding: 15px;
+
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    position: fixed;
+    z-index: 3;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+a.dropdown-item {
+    color: black;
+}
+
+a.dropdown-item:hover {
+    background-color:lightgray;
+}
+
+/* .dropdown-content > a {
+    color: gray;
+} */
+
+
+/* Utilities */
+
+img.icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color:white;
+    border: 3px solid lightgray;
+}
+
+img.icon-sm {
+    width: 20px;
+    height: 20px;
+}    
+
+
+
+/* Leads */
+
+.lead-link {
+    margin-top: 10px;
+}
+
+.contact-us-form {
+    border: 1px solid lightgray;
+    box-shadow: 0px 0px 20px #eee;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 10px;
+}
+
+/* #contact-form-map-container {
+    height: 100vh;
+    padding: 5px;
+    background-color:lightgray;
+    position:fixed;
+} */
+
+#contact-form-map {
+    border-radius: 4px;
+}
+  
+/* @media screen and (max-width: 1300px) {
+    .detailed-lead-info{
+        padding-top: 5px;
+    }
+} */
+
+.basic-lead-info {
+    height: 100vh;
+    position: fixed;
+}
+
+/* Remove fixed position on small screens to avoid overlapping. */
+@media screen and (max-width: 1300px) {
+    .basic-lead-info{
+      height: auto;
+      position: relative;
+    }
+}
+
+#page-title-header {
+    /* border-top: 1px solid #eee; */
+    box-shadow: 0px 0px 10px gray;
+    background-color:gray;
+    width: 100%;
+    color: white;
+    padding-left: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    z-index: 3;
+    position: fixed;
+    margin-top: 40;
+}

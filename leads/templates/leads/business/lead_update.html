@@ -1,0 +1,23 @@
+
+{% extends 'cricketwireless/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <a href="{% url 'lead_details' lead.id %}" class="pull-left" style="font-style: none; color:gray;">< Back to lead details page</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 offset-lg-3">
+        <h5 class="text-center">Update {{ lead }}</h5>
+        {% crispy form %}
+    </div>
+</div>
+
+
+
+{% endblock content %}

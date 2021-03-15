@@ -1,0 +1,26 @@
+{% load static %}
+
+
+        <ul id='navbar' class="nav position-sticky">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'cricket-wireless-logo.png' %}" alt="" id="logo-image">
+            </a>
+            {% if request.user.is_authenticated %}
+                <li><a href="{% url 'leads_overview' %}" class="nav-link">View leads</a></li>
+                <li><a href="{% url 'contact_us' %}" class="nav-link">Create a lead</a></li>
+                <li><a href="{% url 'account_logout' %}" class="nav-link">Log out</a></li>
+
+                <!-- <li>
+                    <div class="dropdown">
+                        <a class="dropbtn">Account
+                          <i class="fa fa-caret-down"></i>
+                        </a>
+                        <div class="dropdown-content">
+                          <a href="{% url 'account_logout' %}" class="dropdown-item">Log out</a>
+                        </div>
+                      </div>
+                </li> -->
+
+            {% endif %}
+        </ul>
+

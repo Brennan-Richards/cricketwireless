@@ -1,0 +1,32 @@
+{% extends 'cricketwireless/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+
+<div class="row">
+
+    <div class="col-lg-6 offset-lg-3">
+        <div class="card bg-light p-5 shadow">
+            <h4>
+                <img src="{% static 'success.png' %}" alt="Checkmark, success!" class="icon-sm">
+                Success!
+            </h4>
+            <p>Thanks for getting in touch with us.</p>
+            <p>A Cricket representative will be in touch
+               with you in a timely manner to start you on the process to fulfilling your request.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<!-- <script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script> -->
+
+{% endblock content %}

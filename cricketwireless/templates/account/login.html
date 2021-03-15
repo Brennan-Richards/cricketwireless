@@ -1,0 +1,95 @@
+{% extends "account/base.html" %}
+
+{% load static %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content_header %}
+
+{% include 'cricketwireless/page-title-header.html' with page="Login" %}
+
+
+{% endblock content_header %}
+
+{% block content %}
+
+
+<div class="row">
+  <div class="col-lg-6 offset-lg-3">
+
+    <div class="card shadow mb-5">
+
+        <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+          <!-- <li class="nav-item">
+              <a class="nav-link active text-secondary" id="google-tab" data-toggle="tab" href="#google" role="tab" aria-controls="google" aria-selected="true">
+                  <i class="fas fa-chart-bar"></i> Google
+              </a>
+          </li> -->
+          <li class="nav-item">
+              <a class="nav-link text-secondary" id="yaa-connect-tab" data-toggle="tab" href="#yaa-connect" role="tab" aria-controls="yaa-connect" aria-selected="false">
+                  <i class="fas fa-chart-pie"></i> YAA Connect
+              </a>
+          </li>
+        </ul>
+
+
+      <div class="card-body p-5">
+        <div class="tab-content" id="nav-tabContent">
+          <!-- <div class="tab-pane fade" id="google" role="tabpanel" aria-labelledby="google-tab">
+            <h5>Third party sign in</h5>
+            <p>Please sign in to yaaconnect.com using an existing Google account.</p>
+      
+      
+                {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+         
+                  <a href="/accounts/google/login/?process=login" class="btn btn-secondary btn-block shadow">
+                      <img src="{% static 'google-icon.png' %}" alt="" class="icon-sm m-2">
+                    Google
+                  </a>
+          </div> -->
+          <div class="tab-pane fade show active" id="yaa-connect" role="tabpanel" aria-labelledby="yaa-connect-tab">
+
+            <h5 class="pb-3 text-center">YAAConnect.com sign in</h5>
+
+            {% include "socialaccount/snippets/login_extra.html" %}
+      
+  
+    
+            <form class="login text-center" method="POST" action="{% url 'account_login' %}">
+              {% csrf_token %}
+              {{ form.login }}
+              {{ form.password }}
+              <br>
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              <button class="btn btn-sm btn-light btn-outline-dark m-3" type="submit">{% trans "Sign In" %}</button><br>
+              <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+      
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- {% get_providers as socialaccount_providers %}
+
+      {% if socialaccount_providers %}
+      
+      {% else %}
+      <p>{% blocktrans %}If you have not created an account yet, then please
+      <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+      {% endif %}
+       -->
+
+      
+
+    </div>
+  </div>
+</div>
+{% endblock %}

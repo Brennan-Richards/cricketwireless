@@ -1,0 +1,30 @@
+ 
+{% load static %}
+
+<div class="row">
+    <div class="col">
+        <div id="page-title-header">
+
+            <h2>
+                {% if page == 'Contact' %}
+                    <img src="{% static 'service-bell.png' %}" alt="Service bell icon" class="icon-circle"> Request for service
+          
+                {% elif page == 'Leads' %}
+                    <img src="{% static 'funnel-icon.png' %}" alt="Funnel icon" class="icon-circle"> Leads
+                {% elif page == 'Lead Detail' %}
+                    <img src="{% static 'funnel-icon.png' %}" alt="Funnel icon" class="icon-circle"> Lead detail
+                {% elif page == 'Login' %}
+                    <!-- <img src="{% static 'funnel-icon.png' %}" alt="Funnel icon" class="icon-circle"> Lead detail -->
+                    Employee sign in
+                {% elif page == 'Sign up' %}
+                <!-- <img src="{% static 'funnel-icon.png' %}" alt="Funnel icon" class="icon-circle"> Lead detail -->
+                    Employee sign up
+                {% elif page == 'Log out' %}
+                <!-- <img src="{% static 'funnel-icon.png' %}" alt="Funnel icon" class="icon-circle"> Lead detail -->
+                    Log out
+                {% endif %}
+            </h2>
+        
+        </div>
+    </div>
+</div>
