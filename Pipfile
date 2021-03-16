@@ -10,6 +10,9 @@ django = "*"
 django-tinymce = "*"
 django-crispy-forms = "*"
 django-allauth = "*"
+gunicorn = "*"
+django-heroku = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.7"
