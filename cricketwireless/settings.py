@@ -98,7 +98,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'cricketwireless.wsgi.application'
 
 
-# Database
+# Database settings
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
