@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 DEBUG = os.environ.get('DEBUG', 'False') != 'False'
 
 
-ALLOWED_HOSTS = ['www.yaaconnect.com', 'yaaconnect.com', '.yaaconnect.com']
+ALLOWED_HOSTS = ['https://stark-river-42703.herokuapp.com/', 'www.yaaconnect.com', 'yaaconnect.com', '.yaaconnect.com']
 
 if DEBUG == True:
     ALLOWED_HOSTS = ALLOWED_HOSTS.append('localhost')
