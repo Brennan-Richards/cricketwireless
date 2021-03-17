@@ -66,6 +66,7 @@ INSTALLED_APPS = [
 
     # Other third party apps
     'crispy_forms'
+    'tinymce',
 ]
 
 MIDDLEWARE = [
