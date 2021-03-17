@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,8 +25,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') != 'False'
-
-print('DEBUG = ', DEBUG)
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', None)
 
@@ -214,3 +213,23 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # ---- Activate Django-Heroku.
 django_heroku.settings(locals())
 
+
+# -- Sentry production error reporting
+
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+if DEBUG == False:
+    sentry_sdk.init(
+        dsn="https://a60dd298dcdb409b9493b7dbfae824ae@o439053.ingest.sentry.io/5679994",
+        integrations=[DjangoIntegration()],
+
+        # Set traces_sample_rate to 1.0 to capture 100%
+        # of transactions for performance monitoring.
+        # We recommend adjusting this value in production.
+        traces_sample_rate=1.0,
+
+        # If you wish to associate users to errors (assuming you are using
+        # django.contrib.auth) you may enable sending PII data.
+        send_default_pii=True
+    )
