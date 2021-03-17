@@ -26,7 +26,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') != 'False'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', None)
+
+ALLOWED_HOSTS = ['www.yaaconnect.com', 'yaaconnect.com', '.yaaconnect.com']
+
+if DEBUG == True:
+    ALLOWED_HOSTS = ALLOWED_HOSTS.append('localhost')
+
 
 # ( Added for use with django-allauth package. )
 AUTHENTICATION_BACKENDS = [
