@@ -70,3 +70,106 @@ class ContactForm(ModelForm):
                 css_class="contact-us-form"
             )
         )
+
+
+class EmployeeLeadForm(ModelForm):
+    class Meta:
+        model = Lead
+        exclude = ['message_from_client', 'date_created', 'date_sold']
+
+    def __init__(self, *args, **kwargs):
+
+        # NOTE: Must always pop keyword arguments before calling super().__init__
+        update = kwargs.pop('update')
+
+        super(EmployeeLeadForm, self).__init__(*args, **kwargs)
+
+        button_text = 'Contact us' if not update else 'Update'
+
+        header_content = '''<h5>Employee view
+                                <img src="/static/question-icon.png" class="icon-sm" data-toggle="tooltip" data-placement="right" 
+                                title="You are viewing this contact page as an employee. To view the page from the perspective of
+                                a client, you must navigate to this URL without being logged in." >
+                            </h5>
+                            <br>
+                        '''
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Div(
+                
+                HTML(header_content),
+
+                Div(
+                    Div(
+                        Field('first_name', css_class='form-control'),
+                    css_class="col"),
+                    Div(
+                    Field('last_name', css_class='form-control'),
+                    css_class="col"),
+                css_class="form-row"    
+                ),
+
+                HTML('<br>'),
+
+                Div(
+                    Div(
+                        Field('phone_number', css_class='form-control'),
+                    css_class="col"),
+                    Div(
+                        Field('email_address', css_class='form-control'),
+                    css_class="col"),
+                css_class="form-row"    
+                ),
+                
+                HTML('<br>'),
+
+                Div(
+                    Div(
+                        Field('city', css_class='form-control'),
+                    css_class="col"),
+                    Div(
+                        Field('state', css_class='form-control'),
+                    css_class="col"),
+                css_class="form-row"    
+                ),
+
+                HTML('<br>'),
+
+                Div(
+                    Div(
+                        Field('zip_code', css_class='form-control'),
+                    css_class="col"),
+                    Div(
+                        Field('street_address', css_class='form-control'),
+                    css_class="col"),
+                css_class="form-row"    
+                ),
+
+                HTML('<br>'),
+
+                Field('desired_service', css_class='form-control'),
+
+                HTML('<br>'),
+
+                Field('current_status', css_class='form-control'),
+                
+                HTML('<br>'),
+
+                Field('date_last_interacted', css_class='form-control', autocomplete="off", style='max-height: 100px; overflow:scroll;'),
+                HTML('<br>'),
+
+                Field('rate_plan', css_class='form-control', style='max-height: 100px; overflow:scroll;'),
+                HTML('<br>'),
+
+                Field('auto_pay', css_class='form-control', style='max-height: 100px; overflow:scroll;'),
+                HTML('<br>'),
+
+                ButtonHolder(
+                    Submit('submit', button_text, css_class='btn btn-light btn-outline-secondary form-control'),                        
+                ),
+
+                css_class="contact-us-form"
+            )
+        )
+

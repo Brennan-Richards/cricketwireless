@@ -242,3 +242,12 @@ img.icon-sm {
     position: fixed;
     margin-top: 40;
 }
+
+/* Lines */
+
+#lines-display {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    height: 50vh;
+    overflow:auto;
+}

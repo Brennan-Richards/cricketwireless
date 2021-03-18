@@ -7,23 +7,27 @@ from tinymce.models import HTMLField
 INQUIRED = "Inquired"
 CONTACTED = "Contacted"
 SOLD = "Sold"
+UNSELLABLE = "Unsellable"
 
 LEAD_STATUS_CHOICES = [
     (INQUIRED, "Inquired"),
     (CONTACTED, "Contacted"),
-    (SOLD, "Sold")
+    (SOLD, "Sold"),
+    (UNSELLABLE, "Unsellable")
+
 ]
 
 
-PHONE = "Phone call"
-ONLINE_FORM = "Online form"
-MANUAL = "Manually created"
+# PHONE = "Phone call"
+# ONLINE_FORM = "Online form"
+# MANUAL = "Manually created"
 
-LEAD_TYPE_CHOICES = [
-    (PHONE, "Phone call"),
-    (ONLINE_FORM, "Online form"),
-    (MANUAL, "Manually created")
-]
+# LEAD_TYPE_CHOICES = [
+#     (PHONE, "Phone call"),
+#     (ONLINE_FORM, "Online form"),
+#     (MANUAL, "Manually created")
+# ]
+# medium = models.CharField('How was the lead generated?', blank=True, null=True, max_length=16, choices=LEAD_TYPE_CHOICES, default=MANUAL) # How was the lead generated?
 
 
 QUOTE_TO_SWITCH = "Request a quote for switching to Cricket"
@@ -42,27 +46,38 @@ DESIRED_SERVICES = [
     (OTHER, "Other")
 ]
 
+
+MORE = 'More'
+CORE = 'Core'
+TENGB = '10GB'
+TWOGB = '2GB'
+
+RATE_PLANS = [
+    (MORE, 'More'),
+    (CORE, 'Core'),
+    (TENGB, '10GB'),
+    (TWOGB, '2GB')
+]
+
 class Lead(models.Model):
-    # property = models.ForeignKey(Property, blank=True, null=True, default=None, on_delete=models.SET_NULL)
 
-    # The source that generated the lead.
-    source = models.CharField(blank=True, null=True, max_length=64, default=None)
+    source = models.CharField(blank=True, null=True, max_length=64, default=None) # The source that generated the lead.
 
-    # The status of the lead.
-    current_status = models.CharField(blank=True, null=True, max_length=9, choices=LEAD_STATUS_CHOICES, default=INQUIRED)
+    current_status = models.CharField(blank=True, null=True, max_length=10, choices=LEAD_STATUS_CHOICES, default=INQUIRED) # The status of the lead.
 
-    # Stores the service that the client desires, the reason they're contacting.
-    desired_service = models.CharField(blank=True, null=True, max_length=43, choices=DESIRED_SERVICES, default=QUOTE_TO_SWITCH)
+    desired_service = models.CharField(blank=True, null=True, max_length=43, choices=DESIRED_SERVICES, default=QUOTE_TO_SWITCH) # Stores the service that the client desires, the reason they're contacting.
+    
+    notes = HTMLField(blank=True, null=True, default=None) # A field for keeping notes on the client.
 
-    # A field for keeping notes on the client.
-    notes = HTMLField(blank=True, null=True, default=None)
+    message_from_client = HTMLField('Other messages/information', blank=True, null=True, default=None) # A field for any messages from the client which may come in from online forms.
+    
+    rate_plan = models.CharField(blank=True, null=True, max_length=4, choices=RATE_PLANS, default=None) 
 
-    # A field for any messages from the client which may come in from online forms.
-    message_from_client = HTMLField('Other messages/information', blank=True, null=True, default=None)
+    date_last_interacted = models.DateField(blank=True, null=True, default=None)
 
-    # How was the lead generated?
-    medium = models.CharField('How was the lead generated?', blank=True, null=True, max_length=16, choices=LEAD_TYPE_CHOICES, default=MANUAL)
+    auto_pay = models.BooleanField(blank=True, null=True, default=False)
 
+    # Contact information
     phone_number = models.CharField(max_length=20, blank=True, null=True, default=None)
     email_address = models.CharField(max_length=100, blank=True, null=True, default=None)
     first_name = models.CharField(max_length=150, blank=True, null=True, default=None)
@@ -73,10 +88,10 @@ class Lead(models.Model):
     zip_code = models.CharField(max_length=20, blank=True, null=True, default=None)
     street_address = models.CharField(max_length=150, blank=True, null=True, default=None)
 
+    # Date fields.
     date_created = models.DateTimeField(auto_now_add=True, blank=False, null=False)
-    
-    # Track this attributed when the lead's status becomes "Sold"
-    date_sold = models.DateField(blank=True, null=True, default=None)
+    date_sold = models.DateField(blank=True, null=True, default=None) # Track this attributed when the lead's status becomes "Sold"
+
 
     def __str__(self):
         name = ""
@@ -95,3 +110,12 @@ class Lead(models.Model):
             name += '-'
         
         return name
+
+class Line(models.Model):
+    """
+    This object represents a phone line, attached to a Lead/customer. A customer may have any number of lines.
+    """
+    lead = models.ForeignKey(Lead, blank=False, null=False, default=None, on_delete=models.CASCADE)
+    cricket_protect = models.BooleanField(blank=True, null=True, default=False)
+    current_device_type = models.CharField(blank=True, null=True, max_length=128, default=None)
+    upgrade_eligibility_date = models.DateField(blank=True, null=True, default=None)

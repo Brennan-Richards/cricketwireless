@@ -23,10 +23,16 @@ from . import views
 urlpatterns = [
 
     # Business-facing
+    # -- Leads
     path('leads-overview', views.leads_overview, name="leads_overview"),
     path('lead-details/<int:lead_id>', views.lead_details, name="lead_details"),
     path('lead-update/<int:lead_id>', views.lead_update, name="lead_update"),
     path('<pk>/lead-delete', views.LeadDelete.as_view(), name="lead_delete"),
+
+    # -- Lines
+    path('line-create/<int:lead_id>', views.line_create, name="line_create"),
+    path('line-update/<int:lead_id>', views.line_update, name="line_update"),
+    path('<pk>/line-delete', views.LineDelete.as_view(), name="line_delete"),
 
     # Client-facing
     path('contact-us', views.contact_us, name="contact_us"), # Manual lead creation, therefore no source
