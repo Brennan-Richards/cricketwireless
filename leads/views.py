@@ -3,7 +3,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import DeleteView
 
 from .models import Lead, Line
-from .forms import ContactForm, EmployeeLeadForm
+from .forms import ContactForm, EmployeeLeadForm, LineForm
 
 # Create your views here.
 
@@ -36,9 +36,10 @@ def lead_update(request, lead_id):
     lead_update_form = EmployeeLeadForm(request.POST or None, instance=lead, update=True)
     context['form'] = lead_update_form
 
-    if lead_update_form.is_valid():
-        lead = lead_update_form.save()
-        return redirect('lead_details', lead_id=lead_id)
+    if request.method == 'POST':
+        if lead_update_form.is_valid():
+            lead = lead_update_form.save()
+            return redirect('lead_details', lead_id=lead_id)
 
     return render(request, "leads/business/lead_update.html", context)
 
@@ -52,17 +53,46 @@ class LeadDelete(DeleteView):
 def line_create(request, lead_id):
     context = {}
 
+    context['lead'] = Lead.objects.get(id=lead_id)
+
+    line_form = LineForm(request.POST or None, update=False)
+    context['form'] = line_form
+
+    if request.method == 'POST':
+        if line_form.is_valid():
+            line = line_form.save(commit=False)
+            line.lead = context['lead']
+            line.save()
+            return redirect('lead_details', lead_id=lead_id)
+        else:
+            print(line_form.errors)
+
     return render(request, 'leads/business/line_create.html', context)
 
 
-def line_update(request, lead_id):
+def line_update(request, line_id):
     context = {}
+
+    context['line'] = Line.objects.get(id=line_id)
+    context['lead'] = context['line'].lead
+
+    line_update_form = LineForm(request.POST or None, instance=context['line'], update=False)
+    context['form'] = line_update_form
+
+    if request.method == 'POST':
+        if line_update_form.is_valid():
+            line = line_update_form.save(commit=False)
+            line.lead = context['lead']
+            line.save()
+            return redirect('lead_details', lead_id=context['line'].lead)
+        else:
+            print(line_update_form.errors)
 
     return render(request, 'leads/business/line_create.html', context)
 
 
 class LineDelete(DeleteView):
-    model = Lead
+    model = Line
     template_name = 'leads/business/line_confirm_delete.html'
 
     def get_success_url(self):
@@ -85,13 +115,14 @@ def contact_us(request, traffic_source='manual'):
     # Storing this value to be used in POST requests.
     t_s = traffic_source
 
-    if contact_form.is_valid():
-        lead = contact_form.save(commit=False)
-        lead.source = t_s.upper()
-        lead.save()
-        return redirect('contact_success', lead_id=lead.id)
-    else:
-        print(contact_form.errors)
+    if request.method == 'POST':
+        if contact_form.is_valid():
+            lead = contact_form.save(commit=False)
+            lead.source = t_s.upper()
+            lead.save()
+            return redirect('contact_success', lead_id=lead.id)
+        else:
+            print(contact_form.errors)
 
     return render(request, 'leads/client/contact_us.html', context)
 

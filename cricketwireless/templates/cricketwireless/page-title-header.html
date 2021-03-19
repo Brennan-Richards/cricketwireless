@@ -8,7 +8,8 @@
             <h2>
                 {% if page == 'Contact' %}
                     <img src="{% static 'service-bell.png' %}" alt="Service bell icon" class="icon-circle"> Request for service
-          
+                {% elif page == 'Create lead' %}
+                    <img src="{% static 'funnel-icon.png' %}" alt="Funnel icon" class="icon-circle"> Create lead
                 {% elif page == 'Leads' %}
                     <img src="{% static 'funnel-icon.png' %}" alt="Funnel icon" class="icon-circle"> Leads
                 {% elif page == 'Lead Detail' %}

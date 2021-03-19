@@ -31,7 +31,7 @@ urlpatterns = [
 
     # -- Lines
     path('line-create/<int:lead_id>', views.line_create, name="line_create"),
-    path('line-update/<int:lead_id>', views.line_update, name="line_update"),
+    path('line-update/<int:line_id>', views.line_update, name="line_update"),
     path('<pk>/line-delete', views.LineDelete.as_view(), name="line_delete"),
 
     # Client-facing

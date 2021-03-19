@@ -3,7 +3,14 @@
 
         <ul id='navbar' class="nav position-sticky">
             <a href="{% url 'home' %}">
+              {% if not request.user.is_authenticated %}
+
                 <img src="{% static 'cricket-wireless-logo.png' %}" alt="" id="logo-image">
+              {% else %}
+
+                <h1 class="navbar-brand text-white p-2 m-2 mr-5 ml-5" style="border:1px solid white; border-radius: 4px;">Y.A.A. Connect</h1>
+
+              {% endif %}
             </a>
             {% if request.user.is_authenticated %}
                 <li><a href="{% url 'leads_overview' %}" class="nav-link">View leads</a></li>

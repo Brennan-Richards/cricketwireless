@@ -5,7 +5,13 @@
 {% load crispy_forms_tags %}
 
 {% block content_header %}
-    {% include 'cricketwireless/page-title-header.html' with page="Contact"%}
+    {% if request.user.is_authenticated %}
+        {% include 'cricketwireless/page-title-header.html' with page="Create lead"%}
+
+    {% else %}
+        {% include 'cricketwireless/page-title-header.html' with page="Contact"%}
+
+    {% endif %}
 {% endblock content_header %}
 
 

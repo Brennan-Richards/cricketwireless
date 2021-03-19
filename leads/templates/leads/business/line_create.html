@@ -1,0 +1,32 @@
+{% extends 'cricketwireless/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!-- "Fengyuan Chen's Datepicker" package -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+
+
+<div class="row">
+    <div class="col">
+        <a href="{% url 'lead_details' lead.id %}" class="pull-left" style="font-style: none; color:gray;">< Back to lead details page</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 offset-lg-3">
+        <h5 class="text-center">Create new line for {{ lead }}</h5>
+        {% crispy form %}
+    </div>
+</div>
+
+<script>
+    // Date-time picker in form.
+    $(function () {
+      $("#id_upgrade_eligibility_date").datepicker();
+    });
+</script>
+
+{% endblock content %}

@@ -1,6 +1,6 @@
 
 from django.forms import ModelForm
-from .models import Lead
+from .models import Lead, Line
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Field, HTML, Div, ButtonHolder
 
@@ -67,7 +67,7 @@ class ContactForm(ModelForm):
                     Submit('submit', button_text, css_class='btn btn-light btn-outline-secondary form-control'),                        
                 ),
 
-                css_class="contact-us-form"
+                css_class="basic-form"
             )
         )
 
@@ -88,7 +88,7 @@ class EmployeeLeadForm(ModelForm):
 
         header_content = '''<h5>Employee view
                                 <img src="/static/question-icon.png" class="icon-sm" data-toggle="tooltip" data-placement="right" 
-                                title="You are viewing this contact page as an employee. To view the page from the perspective of
+                                title="You are viewing this contact page as an employee. Clients will see less fields for simplicity's sake. To view the page from the perspective of
                                 a client, you must navigate to this URL without being logged in." >
                             </h5>
                             <br>
@@ -156,7 +156,7 @@ class EmployeeLeadForm(ModelForm):
                 
                 HTML('<br>'),
 
-                Field('date_last_interacted', css_class='form-control', autocomplete="off", style='max-height: 100px; overflow:scroll;'),
+                Field('date_last_interacted', css_class='form-control', autocomplete="off"),
                 HTML('<br>'),
 
                 Field('rate_plan', css_class='form-control', style='max-height: 100px; overflow:scroll;'),
@@ -169,7 +169,48 @@ class EmployeeLeadForm(ModelForm):
                     Submit('submit', button_text, css_class='btn btn-light btn-outline-secondary form-control'),                        
                 ),
 
-                css_class="contact-us-form"
+                css_class="basic-form"
             )
         )
 
+class LineForm(ModelForm):
+    class Meta:
+        model = Line
+        exclude = ['lead']
+
+    def __init__(self, *args, **kwargs):
+
+        # NOTE: Must always pop keyword arguments before calling super().__init__
+        update = kwargs.pop('update')
+
+        super(LineForm, self).__init__(*args, **kwargs)
+
+        button_text = 'Create line' if not update else 'Update line'
+
+        form_header_content = f'''<h5>
+                                { button_text }
+                                </h5>
+                                <br>
+                              '''
+        
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Div(
+                HTML(form_header_content),
+
+                Field('cricket_protect', css_class='form-control'),
+                HTML('<br>'),
+
+                Field('current_device_type', css_class='form-control'),
+                HTML('<br>'),
+
+                Field('upgrade_eligibility_date', css_class='form-control', autocomplete="off"),
+                HTML('<br>'),
+
+                ButtonHolder(
+                    Submit('submit', button_text, css_class='btn btn-light btn-outline-secondary form-control'),                        
+                ),
+
+                css_class="basic-form"
+            )
+        )
