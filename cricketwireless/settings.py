@@ -29,6 +29,9 @@ DEBUG = os.environ.get('DEBUG', 'False') != 'False'
 
 ALLOWED_HOSTS = ['https://stark-river-42703.herokuapp.com/', 'www.yaaconnect.com', 'yaaconnect.com', '.yaaconnect.com']
 
+# Redirect requests on http to https
+SECURE_SSL_REDIRECT = not DEBUG
+
 if DEBUG == True:
     ALLOWED_HOSTS = ALLOWED_HOSTS.append('localhost')
 
