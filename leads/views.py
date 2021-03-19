@@ -4,6 +4,10 @@ from django.views.generic.edit import DeleteView
 
 from .models import Lead, Line
 from .forms import ContactForm, EmployeeLeadForm, LineForm
+from .utils import outreach_links
+
+from django.utils import timezone
+from datetime import timedelta
 
 # Create your views here.
 
@@ -12,8 +16,10 @@ def leads_overview(request):
     context = {}
     context['leads_list'] = Lead.objects.filter(current_status__in=['Inquired', 'Contacted']).order_by('-date_created')
 
-    # for i in context['leads_list'][:3]:
-    #     print(i.date_created)
+    next_15_days = (timezone.now(), timezone.now() + timedelta(days=15))
+    context['upcoming_upgrades'] = Line.objects.filter(lead__current_status__in=['Inquired', 'Contacted', 'Sold'], upgrade_eligibility_date__range=next_15_days)
+
+    context['outreach_links'] = outreach_links()
 
     return render(request, "leads/business/leads_overview.html", context)
 
@@ -118,7 +124,7 @@ def contact_us(request, traffic_source='manual'):
     if request.method == 'POST':
         if contact_form.is_valid():
             lead = contact_form.save(commit=False)
-            lead.source = t_s.upper()
+            lead.source = t_s.upper().replace('_', ' ')
             lead.save()
             return redirect('contact_success', lead_id=lead.id)
         else:

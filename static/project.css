@@ -92,7 +92,13 @@ ul#navbar {
     width: 100%; /* Full width */
     z-index: 2;
 }
-  
+
+ul#navbar > li > a.nav-link {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight:0.5rem;
+}
+
 ul#navbar > li {
     float: left;
 }
@@ -109,6 +115,7 @@ ul#navbar > li a {
 
 a.nav-link {
     color:white;
+
 }
 
 a.nav-link:hover {
@@ -300,4 +307,28 @@ img.icon-sm {
     background-color: lightgray;
     padding: 10px;
     border-radius: 4px;
+}
+
+/* Leads dashboard */
+
+#upcoming-upgrades {
+    border: 1px solid gray;
+    margin-bottom: 8px;
+    height:40vh;
+    padding: 10px;
+    border-radius: 4px;
+    overflow: scroll;
+}
+
+#outreach-links {
+    border: 1px solid gray;
+    height:30vh;
+    padding: 5px;
+    border-radius: 4px;
+    overflow: scroll;
+
+}
+
+#dashboard-sidebar {
+    position:fixed;
 }

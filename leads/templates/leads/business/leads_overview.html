@@ -12,49 +12,108 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 
+<div class="row">
 
-<table class="table table-bordered table-striped" style="margin:auto; font-size: 0.9rem;" id="leads-list">
-    <thead class="table-header">
-      <tr>
-        <td>NAME</td>
-        <td>DATE CREATED</td>
-        <td>STATUS</td>
-        <td>PHONE #</td>
-        <td>EMAIL</td>
-        <td>DETAILS</td>
-         <!-- Actions: update lead info (form, url, view, template), view all details (view, url, template), ... -->
-      </tr>
-    </thead>
-    <tbody>
-    {% for l in leads_list %}
+  <div class="col-lg-3">
+
+    <div id="dashboard-sidebar">
+      <div class="row">
+        <div class="col">
+          <div id="upcoming-upgrades" class="card">
+            <h6>Upgrades in the next 15 days
+              <i class="fas fa-question-circle float-right ml-2" data-toggle="tooltip" data-placement="top" 
+              title="Lines that have an upgrade coming up in the next 15 days."></i>
+            </h6>
+            {% for line in upcoming_upgrades %}
+            <hr>
+            <span>{{ line.lead }} - {{ line }} 
+              <a href="{% url 'lead_details' lead_id=line.lead.id %}" class="btn btn-sm btn-secondary ml-4 float-right"
+              data-toggle="tooltip" data-placement="top" 
+              title="View this lead.">
+              <i class="fas fa-arrow-right"></i>
+              </a>
+            </span>
+            {% endfor %}
+          </div>
+        </div>
+      
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <div id="outreach-links">
+            <h6>Outreach links
+              <i class="fas fa-question-circle float-right ml-2" data-toggle="tooltip" data-placement="top" 
+              title="Copy these links to post outreach to the corresponding platforms."></i>
+            </h6>
+
+            {% for p, l in outreach_links.items %}
+              <hr>
+              <span>
+                <i class="fab fa-{{ p }} mr-2"></i>
+                <input type="text" value="{{ l }}" id="{{p}}-outreach-link" readonly>
+                <a onclick="copyLink('{{p}}')" class="btn btn-sm btn-secondary ml-4 float-right">
+                  <i class="far fa-clipboard text-white" data-toggle="tooltip" data-placement="top" 
+                  title="Click to copy the {{ p }} link to clipboard."></i>
+                </a>
+              </span>
+            {% endfor %}
+
+          </div>
+        </div>
+  
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="col-lg-9">
+
+    <table class="table table-bordered table-striped" style="margin:auto; font-size: 0.9rem;" id="leads-list">
+      <thead class="table-header">
         <tr>
-          <td>
-            {{ l }}
-
-          </td>
-          <td data-sort='{{ l.date_created|date:"c" }}'>{{ l.date_created }}</td>
-          <td><p>"{{ l.current_status }}"</p></td>
-          <td>
-            {% if l.phone_number is not None %}
-              <a href="tel:{{ l.phone_number }}" class="client-link">{{ l.phone_number }}</a>
-            {% else %}
-              <p> - </p>
-            {% endif %}
-          </td>
-          <td>
-            {% if l.email_address is not None %}
-              <a href="mailto:{{ l.email_address }}" class="client-link">{{ l.email_address }}</a>
-            {% else %}
-              <p> - </p>
-            {% endif %}
-          </td>
-          <td>
-            <a href="{% url 'lead_details' l.id %}" class="btn btn-sm btn-light btn-outline-dark"> Details</a>
-          </td>
+          <td>NAME</td>
+          <td>DATE CREATED</td>
+          <td>STATUS</td>
+          <td>PHONE #</td>
+          <td>EMAIL</td>
+          <td>DETAILS</td>
+           <!-- Actions: update lead info (form, url, view, template), view all details (view, url, template), ... -->
         </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+      {% for l in leads_list %}
+          <tr>
+            <td>
+              {{ l }}
+  
+            </td>
+            <td data-sort='{{ l.date_created|date:"c" }}'>{{ l.date_created }}</td>
+            <td><p>"{{ l.current_status }}"</p></td>
+            <td>
+              {% if l.phone_number is not None %}
+                <a href="tel:{{ l.phone_number }}" class="client-link">{{ l.phone_number }}</a>
+              {% else %}
+                <p> - </p>
+              {% endif %}
+            </td>
+            <td>
+              {% if l.email_address is not None %}
+                <a href="mailto:{{ l.email_address }}" class="client-link">{{ l.email_address }}</a>
+              {% else %}
+                <p> - </p>
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'lead_details' l.id %}" class="btn btn-sm btn-light btn-outline-dark"> Details</a>
+            </td>
+          </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
   <script type="text/javascript">
 
@@ -63,6 +122,28 @@
         "order": [[ 1, "desc" ]]
       });
     } );
+
+    // Tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    // Copy outreach links on click.
+    function copyLink(platform) {
+      alert(platform);
+      /* Get the text field */
+      var copyText = document.getElementById(platform + "-outreach-link");
+
+      /* Select the text field */
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+
+      /* Alert the copied text */
+      alert("Copied the text: " + copyText.value);
+    }
   
   </script>
 

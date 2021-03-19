@@ -132,9 +132,9 @@
                                         <div class="line">
                                             <h6>{{ l }}
                                                 <div class="btn-group ml-3" role="group" aria-label="Basic example">
-                                                    <a href="{% url 'line_update' line_id=l.id %}" class="btn btn-sm btn-outline-secondary text-dark" data-toggle="tooltip" data-placement="bottom" 
+                                                    <a href="{% url 'line_update' line_id=l.id %}" class="btn btn-sm btn-outline-dark text-dark" data-toggle="tooltip" data-placement="bottom" 
                                                     title="Update this line."><i class="fas fa-pencil-ruler"></i></a>
-                                                    <a href="{% url 'line_delete' l.id %}" type="button" class="btn btn-sm btn-outline-secondary text-dark" data-toggle="tooltip" data-placement="bottom" 
+                                                    <a href="{% url 'line_delete' l.id %}" type="button" class="btn btn-sm btn-outline-dark text-dark" data-toggle="tooltip" data-placement="bottom" 
                                                     title="Delete this line."><i class="fas fa-trash"></i></a>
                                                 </div>                         
                                             </h6>
@@ -194,7 +194,7 @@
                                     </tr>
                                     <tr>
                                         <td class="ld-title">Messages from this lead</td>
-                                        <td>{% if lead.message_from_client is not None %} {{ lead.message_from_client }} {% else %} N/A {% endif %}</td>
+                                        <td>{% if lead.message_from_client is not None %} {{ lead.message_from_client|safe }} {% else %} N/A {% endif %}</td>
                                     </tr>
                                     <tr>
                                         <td class="ld-title">Notes about this lead</td>
