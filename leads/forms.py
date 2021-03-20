@@ -75,7 +75,7 @@ class ContactForm(ModelForm):
 class EmployeeLeadForm(ModelForm):
     class Meta:
         model = Lead
-        exclude = ['message_from_client', 'date_created', 'date_sold']
+        exclude = [ 'date_created', 'date_sold']
 
     def __init__(self, *args, **kwargs):
 
@@ -145,6 +145,10 @@ class EmployeeLeadForm(ModelForm):
                     css_class="col"),
                 css_class="form-row"    
                 ),
+
+                HTML('<br>'),
+
+                Field('message_from_client', css_class='form-control'),
 
                 HTML('<br>'),
 
