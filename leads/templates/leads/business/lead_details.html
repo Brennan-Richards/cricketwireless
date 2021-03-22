@@ -40,7 +40,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <span class="text-muted">Phone number</span><br>
+                        <span class="text-muted">Main phone number</span><br>
                     </td>
                     <td>
                         {% if lead.phone_number is not None %}<a href="tel:{{ lead.phone_number }}" class="lead-link">{{ lead.phone_number }}</a> {% else %} N/A {% endif %}</a>
@@ -139,6 +139,10 @@
                                                 </div>                         
                                             </h6>
                                             <table class="table">
+                                                <tr>
+                                                    <td class="ld-title">Phone number</td>
+                                                    <td>{{ l.phone_number }}</td>
+                                                </tr>
                                                 <tr>
                                                     <td class="ld-title">Cricket protect?</td>
                                                     <td>{{ l.cricket_protect }}</td>

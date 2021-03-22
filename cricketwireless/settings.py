@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     # Other third party apps
     'crispy_forms',
     'tinymce',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [

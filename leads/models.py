@@ -116,6 +116,8 @@ class Lead(models.Model):
         
         return name
 
+from phonenumber_field.modelfields import PhoneNumberField
+
 class Line(models.Model):
     """
     This object represents a phone line, attached to a Lead/customer. A customer may have any number of lines.
@@ -124,6 +126,7 @@ class Line(models.Model):
     cricket_protect = models.BooleanField(blank=True, null=True, default=False)
     current_device_type = models.CharField(blank=True, null=True, max_length=128, default=None)
     upgrade_eligibility_date = models.DateField(blank=True, null=True, default=None)
+    phone_number = PhoneNumberField(blank=True, null=True, default=None)
 
     def __str__(self):
         return self.current_device_type if self.current_device_type is not None else 'without device type'
