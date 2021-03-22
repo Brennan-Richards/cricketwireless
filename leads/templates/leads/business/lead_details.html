@@ -189,13 +189,17 @@
                                         <td>{% if lead.source is not None %}{{ lead.source }}{% else %} OTHER {% endif %}</td>
                                     </tr>
                                     <tr>
+                                        <td class="ld-title">Employee who generated the lead</td>
+                                        <td>{% if lead.employee_generated_by is not None %}{{ lead.employee_generated_by }}{% else %} N/A {% endif %}</td>
+                                    </tr>
+                                    <tr>
                                         <td class="ld-title">Messages from this lead</td>
                                         <td>{% if lead.message_from_client is not None %} {{ lead.message_from_client|safe }} {% else %} N/A {% endif %}</td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td class="ld-title">Notes about this lead</td>
                                         <td>{% if lead.notes is not None %}<p>{{ lead.notes }}</p> {% else %} N/A {% endif %}</td>
-                                    </tr>
+                                    </tr> -->
                                 </table>
                         </div>
                     </div>

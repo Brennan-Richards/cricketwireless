@@ -312,23 +312,28 @@ img.icon-sm {
 /* Leads dashboard */
 
 #upcoming-upgrades {
-    border: 1px solid gray;
     margin-bottom: 8px;
     height:40vh;
     padding: 10px;
-    border-radius: 4px;
     overflow: scroll;
 }
 
 #outreach-links {
-    border: 1px solid gray;
     height:30vh;
     padding: 5px;
-    border-radius: 4px;
     overflow: scroll;
 
 }
 
 #dashboard-sidebar {
     position:fixed;
+}
+
+/* Remove fixed position on small screens to avoid overlapping. */
+@media screen and (max-width: 1300px) {
+    #dashboard-sidebar {
+      position: relative;
+      height: auto;
+      width: 100%;
+    }
 }

@@ -2,6 +2,9 @@ from django.db import models
 
 from tinymce.models import HTMLField
 
+from django.contrib.auth.models import User
+
+
 # Create your models here.
 
 INQUIRED = "Inquired"
@@ -62,6 +65,8 @@ RATE_PLANS = [
 class Lead(models.Model):
 
     source = models.CharField(blank=True, null=True, max_length=64, default=None) # The source that generated the lead.
+
+    employee_generated_by = models.ForeignKey(User, blank=True, null=True, default=None, on_delete=models.SET_NULL) # The employee who posted the outreach link, hence who the lead can be attributed to.
 
     current_status = models.CharField(blank=True, null=True, max_length=10, choices=LEAD_STATUS_CHOICES, default=INQUIRED) # The status of the lead.
 

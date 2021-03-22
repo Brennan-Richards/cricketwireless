@@ -35,8 +35,14 @@ urlpatterns = [
     path('<pk>/line-delete', views.LineDelete.as_view(), name="line_delete"),
 
     # Client-facing
-    path('contact-us', views.contact_us, name="contact_us"), # Manual lead creation, therefore no source
+    path('contact-us', views.contact_us, name="contact_us"), # Manual lead creation, or otherwise no source
+
+    path('contact-us/<int:employee_id>', views.contact_us, name="contact_us"), # Tracking which user created lead, probably most useful for manual creations.
+
     path('contact-us/<str:traffic_source>', views.contact_us, name="contact_us"), # User clicked through from some source (i.e.: Facebook, IG, Craigslist, ...)
+
+    path('contact-us/<str:traffic_source>/<int:employee_id>', views.contact_us, name="contact_us"), # User clicked through from some employee's specific link.
+
     path('contact-success/<int:lead_id>', views.contact_success, name="contact_success"),
 ] 
 if settings.DEBUG:

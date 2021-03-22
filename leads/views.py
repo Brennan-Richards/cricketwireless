@@ -3,6 +3,8 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import DeleteView
 
 from .models import Lead, Line
+from django.contrib.auth.models import User
+
 from .forms import ContactForm, EmployeeLeadForm, LineForm
 from .utils import outreach_links
 
@@ -19,7 +21,7 @@ def leads_overview(request):
     next_15_days = (timezone.now(), timezone.now() + timedelta(days=15))
     context['upcoming_upgrades'] = Line.objects.filter(lead__current_status__in=['Inquired', 'Contacted', 'Sold'], upgrade_eligibility_date__range=next_15_days)
 
-    context['outreach_links'] = outreach_links()
+    context['outreach_links'] = outreach_links(employee_id=request.user.id)
 
     return render(request, "leads/business/leads_overview.html", context)
 
@@ -108,7 +110,7 @@ class LineDelete(DeleteView):
 
 # Client-facing
 
-def contact_us(request, traffic_source='manual'):
+def contact_us(request, traffic_source='manual', employee_id=None):
     context = {}
 
     if not request.user.is_authenticated:
@@ -125,6 +127,12 @@ def contact_us(request, traffic_source='manual'):
         if contact_form.is_valid():
             lead = contact_form.save(commit=False)
             lead.source = t_s.upper().replace('_', ' ')
+
+            # This lead can be attributed to a specific employee's outreach action.
+            # the default value for the field shown here is None
+            if employee_id is not None:
+                lead.employee_generated_by = User.objects.get(id=employee_id)
+
             lead.save()
             return redirect('contact_success', lead_id=lead.id)
         else:
