@@ -1,0 +1,51 @@
+{% extends 'cricketwireless/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content_header %}
+    {% include 'cricketwireless/page-title-header.html' with page="Data analysis" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="row mb-5">
+    <div class="col-lg-5">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow p-3" style="height: 125px;">
+                    <h5>${{ revenue_generated }}
+                        <i class="fas fa-question-circle float-right ml-2" data-toggle="tooltip" data-placement="top" 
+                           title="Based on an estimated $100 in revenue per sale."></i>
+                    </h5>
+                    <small>Generated from outreach in past 15 days.</small>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card shadow p-3" style="height: 125px;">
+                    <h5>{{ proportion_sold }} %</h5>
+                    <small>Of the generated leads generated in the past 15 days turned into sales.</small>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="ml-3 card shadow p-4">
+                {{ traffic_source_pie_chart|safe }}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card shadow p-3">
+            {{ leads_time_series|safe }}
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+
+{% endblock content %}

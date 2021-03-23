@@ -11,7 +11,7 @@
             </a>
             {% if request.user.is_authenticated %}
                 <li><a href="{% url 'leads_overview' %}" class="nav-link">Leads dashboard</a></li>
-                <li><a href="{% url 'contact_us' employee_id=request.user.id %}" class="nav-link">Create a lead</a></li>
+                <li><a href="{% url 'data_analysis' %}" class="nav-link">Data analysis</a></li>
                 <li><a href="{% url 'account_logout' %}" class="nav-link">Log out</a></li>
 
                 <!-- <li>

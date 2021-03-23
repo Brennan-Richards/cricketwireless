@@ -34,6 +34,9 @@ urlpatterns = [
     path('line-update/<int:line_id>', views.line_update, name="line_update"),
     path('<pk>/line-delete', views.LineDelete.as_view(), name="line_delete"),
 
+    # -- Data analysis
+    path('data-analysis', views.data_analysis, name="data_analysis"),
+
     # Client-facing
     path('contact-us', views.contact_us, name="contact_us"), # Manual lead creation, or otherwise no source
 

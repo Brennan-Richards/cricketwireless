@@ -15,6 +15,7 @@ django-heroku = "*"
 whitenoise = "*"
 sentry-sdk = "*"
 django-phonenumber-field = {extras = ["phonenumbers"],version = "*"}
+plotly = "*"
 
 [requires]
 python_version = "3.7"

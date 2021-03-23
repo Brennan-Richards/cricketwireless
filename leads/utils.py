@@ -1,5 +1,9 @@
 from django.conf import settings
 
+def traffic_sources():
+
+    return ['Facebook', 'Instagram', 'Craiglist', 'Google']
+
 def outreach_links(employee_id):
 
     if settings.DEBUG == True:
@@ -7,8 +11,7 @@ def outreach_links(employee_id):
     else:
         url = 'yaaconnect.com/leads/contact-us/'
 
-    outreach_platforms = ['Facebook', 'Instagram', 'Craiglist', 'Google']
-
+    outreach_platforms = traffic_sources()
     links_dict = {}
 
     for p in outreach_platforms:

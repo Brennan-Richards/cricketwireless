@@ -66,8 +66,10 @@
   </div>
 
   <div class="col-lg-9">
-    <h4>Active leads</h4>
-    <!-- <hr> -->
+    <h4>Active leads
+       <a href="{% url 'contact_us' employee_id=request.user.id %}" class="btn btn-dark float-right"> <i class="fas fa-plus"></i> Create a new lead</a>
+    </h4>
+    <hr>
     <table class="table table-bordered table-striped" style="margin:auto; font-size: 0.9rem;" id="leads-list">
       <thead class="table-header">
         <tr>
