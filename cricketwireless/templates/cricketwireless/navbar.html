@@ -2,12 +2,15 @@
 
 
         <ul id='navbar' class="nav position-sticky">
-            <a href="{% url 'home' %}">
+            <a href="{% url 'home' %}" class="navbar-brand">
+                {% if cricket_logo is 0 %}
+                  <h3 class="text-white ml-4 mr-4 mt-2 mb-2">Y.A.A. Connect</h3>
 
-                <img src="{% static 'cricket-wireless-logo.png' %}" alt="" id="logo-image">
+                  <!-- <h1 class="navbar-brand text-white p-2 m-2 mr-5 ml-5" style="border:1px solid white; border-radius: 4px;">Y.A.A. Connect</h1> -->
+                {% else %}
+                  <img src="{% static 'cricket-wireless-logo.png' %}" alt="" id="logo-image">
 
-                <!-- <h1 class="navbar-brand text-white p-2 m-2 mr-5 ml-5" style="border:1px solid white; border-radius: 4px;">Y.A.A. Connect</h1> -->
-
+                {% endif %}
             </a>
             {% if request.user.is_authenticated %}
                 <li><a href="{% url 'leads_overview' %}" class="nav-link">Leads dashboard</a></li>
