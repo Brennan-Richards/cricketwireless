@@ -54,9 +54,9 @@ def proportion_of_sales_to_leads(days_into_past):
         if l.current_status == 'Sold':
             n_sold += 1
 
-    proportion = n_sold / len(leads)
+    proportion = (n_sold / len(leads)) if len(leads) > 0 else 0
 
-    return round(proportion * 100 , 2)# Used in the UI as a percentage.
+    return round(proportion * 100 , 2) # Used in the UI as a percentage.
 
 
 def lead_time_series(days_into_past):
