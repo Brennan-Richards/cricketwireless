@@ -29,7 +29,8 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
 
     # Custom URLs and includes.
-    path('', views.home, name="home"),
+    path('', views.home, name="home"), # The home page for customers/external.
+    path('employee', views.employee_home, name="employee_home"), # The home page for employees/internal.
     path('leads/', include("leads.urls")),
 
 

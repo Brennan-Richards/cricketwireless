@@ -203,7 +203,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # ---- URL to redirect to on login.
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/employee'
 
 
 # -- Prints emails to the console, only for use in development.

@@ -1,0 +1,71 @@
+{% extends 'cricketwireless/base.html' %}
+
+{% load static %}
+
+{% block content_header %}
+
+<div class="row">
+    <div class="col-lg-12" id="home-header">
+            <img src="{% static 'cricket-characters-header.png' %}" alt="Cricket family." id="header-family-image">
+   
+            <div class="ml-5 mt-5" id="header-text">
+                <h1>Y.A.A. CONNECT</h1>
+                <h3 class="text-white lead">Internal marketing/outreach tool</h3>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a type="button" class="btn btn-outline-light" href="{% url 'leads_overview' %}">View leads</a>
+                    <a type="button" class="btn btn-outline-light" href="{% url 'contact_us' %}">Create a lead</a>
+                </div>
+            </div>
+  
+    </div>
+</div>
+
+<!-- 
+<div class="row">
+    <div class="col ml-3 mt-3">
+        <h3 class="text-dark">Careers</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        
+    </div>
+    <div class="col">
+
+    </div>
+</div> -->
+
+<div class="row">
+    <div class="col ml-3 mt-3">
+        <h3 class="text-dark">Functions</h3>
+    </div>
+</div>
+
+<div class="row p-3" id="home-page-second-row">
+    <div class="col m-2 p-3 card bg-light">
+        <h5>View leads</h5>
+        <p>View information on leads which have filled out the contact form.</p>
+        <a href="{% url 'leads_overview' %}" class="btn btn-secondary">View lead funnel page</a>
+    </div>
+    <div class="col m-2 p-3 card bg-light">
+        <h5>Create a lead</h5>
+        <p>Create a new lead using the same form a potential customer would use to inquire about the business.</p>
+        <a href="{% url 'contact_us' %}" class="btn btn-secondary">Go to contact form</a>
+    </div>
+    <div class="col m-2 p-3 card bg-light">
+        <h5>View data</h5>
+        <p>See how many leads have been generated, converted, and more.</p>
+            <a href="{% url 'data_analysis' %}" class="btn btn-secondary">View data analysis page</a>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+
+{% endblock %}
